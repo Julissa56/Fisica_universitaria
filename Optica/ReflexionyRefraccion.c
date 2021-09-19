@@ -1,9 +1,13 @@
 #include<stdio.h>
+#include <float.h>
 #define MAX         20                              //Ancho del arreglo
-
+#define VLUZ        300000                          //Velocidad de la luz en km/s
 
 unsigned char Obtener_linea(char arreglo[], char rango);
 void ImprimirDatosIniciales(char arreglo[], char rango);
+float Rapidez_Luz_En_Material(float n);
+float IRefraccion_Velocidades(float Vm);
+
 //void OrdenarDatosIniciales();
 
 void main(){
@@ -28,6 +32,9 @@ void main(){
     }
 
     ImprimirDatosIniciales(linea, MAX);
+
+    printf("\nLa rapidez de la luz en el agua es: %.2f km/s", Rapidez_Luz_En_Material(1.33));
+    printf("\nEl indice de refraccion de la luz en el agua es: %.2f", IRefraccion_Velocidades(225563.91));
     //OrdenarDatosIniciales();
 }
 
@@ -54,3 +61,16 @@ void ImprimirDatosIniciales(char arreglo[], char rango){
     }
 }
 
+float Rapidez_Luz_En_Material(float n){             //En unidades de km/s
+    float rm;
+    rm=VLUZ/n;
+    
+    return rm;   
+}
+
+float IRefraccion_Velocidades(float rm){
+    float n;
+    n=VLUZ/rm;
+
+    return n;
+}
