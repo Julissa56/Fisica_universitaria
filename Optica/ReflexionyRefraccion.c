@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include <float.h>
+#include<math.h>
+
+
 #define MAX         20                              //Ancho del arreglo
 #define VLUZ        300000                          //Velocidad de la luz en km/s
 
@@ -7,7 +10,8 @@ unsigned char Obtener_linea(char arreglo[], char rango);
 void ImprimirDatosIniciales(char arreglo[], char rango);
 float Rapidez_Luz_En_Material(float n);
 float IRefraccion_Velocidades(float Vm);
-
+float IRefraccion_Senoidales(float nb, double Ab, double Aa);
+double Angulo_In(float nb, double Ab, float na);
 //void OrdenarDatosIniciales();
 
 void main(){
@@ -35,6 +39,8 @@ void main(){
 
     printf("\nLa rapidez de la luz en el agua es: %.2f km/s", Rapidez_Luz_En_Material(1.33));
     printf("\nEl indice de refraccion de la luz en el agua es: %.2f", IRefraccion_Velocidades(225563.91));
+    printf("\nEl indice de refraccioin dado los angulos y un indice de refraccion es: %.2f", IRefraccion_Senoidales(1.33, 45, 70));
+    printf("\nEl angulo de incidencia a es: %.2f", Angulo_In(1.33, 45, 1));
     //OrdenarDatosIniciales();
 }
 
@@ -73,4 +79,19 @@ float IRefraccion_Velocidades(float rm){
     n=VLUZ/rm;
 
     return n;
+}
+
+float IRefraccion_Senoidales(float nb, double Ab, double Aa){
+    float na;
+   
+    //Convertir las razones  senoidales a razones en funcion de grados
+    na=nb*(sin(Ab)/sin(Aa));
+    return na;
+}
+
+double Angulo_In(float nb, double Ab, float na){
+    double Aa;
+    
+    Aa=asin((nb/na)*sin(Ab));
+    return Aa;
 }
