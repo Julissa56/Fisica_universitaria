@@ -12,6 +12,9 @@ float Rapidez_Luz_En_Material(float n);
 float IRefraccion_Velocidades(float Vm);
 float IRefraccion_Senoidales(float nb, double Ab, double Aa);
 double Angulo_In(float nb, double Ab, float na);
+double Conversn_Grado_Radian(double Ang);
+double Conversn_Radian_Grado(double ARad);
+
 //void OrdenarDatosIniciales();
 
 void main(){
@@ -85,6 +88,8 @@ float IRefraccion_Senoidales(float nb, double Ab, double Aa){
     float na;
    
     //Convertir las razones  senoidales a razones en funcion de grados
+    Ab=Conversn_Grado_Radian(Ab);
+    Aa=Conversn_Grado_Radian(Aa);
     na=nb*(sin(Ab)/sin(Aa));
     return na;
 }
@@ -92,6 +97,18 @@ float IRefraccion_Senoidales(float nb, double Ab, double Aa){
 double Angulo_In(float nb, double Ab, float na){
     double Aa;
     
+    Ab=Conversn_Grado_Radian(Ab);
     Aa=asin((nb/na)*sin(Ab));
+    Aa=Conversn_Radian_Grado(Aa);
     return Aa;
+}
+
+double Conversn_Grado_Radian(double Ang){
+    Ang=Ang*(M_PI/180);
+    return Ang;
+}
+
+double Conversn_Radian_Grado(double ARad){
+    ARad=ARad*(180/M_PI);
+    return ARad;
 }
