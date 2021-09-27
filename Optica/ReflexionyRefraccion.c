@@ -7,6 +7,7 @@
 #define VLUZ        300000                          //Velocidad de la luz en km/s
 
 unsigned char Obtener_linea(unsigned char arreglo[], char rango);
+void copiar(unsigned char to[], unsigned char from[], unsigned char size);
 void ImprimirArregloChar(unsigned char arreglo[], char rango);
 //          -------------------------------------------
 void intercambiar(unsigned char *a, unsigned char *b);
@@ -45,7 +46,17 @@ void main(){
         ;
     }
 
-    ImprimirArregloChar(linea, MAX);
+    ImprimirArregloChar(linea, MAX);                        //Comprobar datos en el arreglo
+    
+    unsigned char linea2[longitud];                         //Crear un arreglo más pequeño con el tamaño exacto de la cantidad de numeros ingresados
+    copiar(linea2, linea, longitud);                        //Llenar el arreglo más pequeño
+    
+    printf("\n\nEl arreglo 'linea2' tiene los siguientes valores desordenados: ");
+    ImprimirArregloChar(linea2, longitud);
+    quicksort(linea2, 0, longitud);
+    printf("\n\nEl arreglo 'linea2' tiene los siguientes valores ordenados: ");
+    ImprimirArregloChar(linea2, longitud);
+
 
     printf("\nLa rapidez de la luz en el agua es: %.2f km/s", Rapidez_Luz_En_Material(1.33));
     printf("\nEl indice de refraccion de la luz en el agua es: %.2f", IRefraccion_Velocidades(225563.91));
@@ -54,9 +65,13 @@ void main(){
     //OrdenarDatosIniciales();
 
     //int fin_aordenado = sizeof linea / sizeof linea[0];
-    quicksort(prueba, 0, 5);
-    printf("\n\nImprimiendo arreglo despues de ordenar...\n");
-    ImprimirArregloChar(prueba, 5);
+    
+
+    
+    
+    //quicksort(prueba, 0, 5);
+    //printf("\n\nImprimiendo arreglo despues de ordenar...\n");
+    //ImprimirArregloChar(prueba, 5);
 }
 
 //LÓGICA DEL PROGRAMA------------------------------------------------------------------------------
@@ -78,11 +93,20 @@ unsigned char Obtener_linea(unsigned char arreglo[], char rango){
     return i;                                       //Cuenta cuantos caracteres hay en el arreglo
 }
 
+void copiar(unsigned char to[], unsigned char from[], unsigned char size){
+    unsigned char i;
+    
+    for(i=0; i<=size; ++i){
+        to[i]=from[i]-'0';
+    }
+}
+
 void ImprimirArregloChar(unsigned char arreglo[], char rango){
     for(int i=0;arreglo[i]!='\0'&& i<rango;++i){
         printf("%d ", arreglo[i]);
     }
 }
+
 
 //-----------Ordenar el arreglo--------------------------------------
 void intercambiar(unsigned char *a, unsigned char *b) {
